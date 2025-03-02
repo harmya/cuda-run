@@ -7,7 +7,7 @@ fi
 
 CUDA_FILE="$1"
 EXECUTABLE="${CUDA_FILE%.*}.out"
-NUM_RUNS=20
+NUM_RUNS=5
 
 if [ ! -f "$CUDA_FILE" ]; then
     echo "Error: File '$CUDA_FILE' does not exist."

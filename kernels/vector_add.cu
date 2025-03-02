@@ -25,7 +25,7 @@ void verifyResult(const float *A, const float *B, const float *C, int n) {
 }
 
 int main() {
-    int n = 1000000;
+    int n = 10000000;
     size_t size = n * sizeof(float);
     initRandom();
 
@@ -44,9 +44,8 @@ int main() {
     checkCudaErrors(cudaMemcpy(d_A, h_A, size, cudaMemcpyHostToDevice));
     checkCudaErrors(cudaMemcpy(d_B, h_B, size, cudaMemcpyHostToDevice));
 
-    int threadsPerBlock = 256;
-    int blocksPerGrid;
-    calculateGridAndBlockSize(n, threadsPerBlock, &blocksPerGrid);
+    int threadsPerBlock = 1024;
+    int blocksPerGrid = (n + threadsPerBlock - 1) / threadsPerBlock;
 
     cudaEvent_t start, stop;
     startTimer(&start, &stop);

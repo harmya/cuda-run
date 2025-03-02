@@ -23,12 +23,6 @@ inline void initRandom() {
 }
 
 
-inline void calculateGridAndBlockSize(int problemSize, int threadsPerBlock, int* blocksPerGrid) {
-    *blocksPerGrid = (problemSize + threadsPerBlock - 1) / threadsPerBlock;
-    printf("CUDA kernel launch with %d blocks of %d threads\n", *blocksPerGrid, threadsPerBlock);
-}
-
-
 inline void startTimer(cudaEvent_t* start, cudaEvent_t* stop) {
     checkCudaErrors(cudaEventCreate(start));
     checkCudaErrors(cudaEventCreate(stop));

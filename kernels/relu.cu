@@ -1,4 +1,4 @@
-#include "cuda_utils.h"
+#include "../cuda_utils.h"
 
 __global__ void matrixReLU(float* input, float* output, int size) {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -49,9 +49,8 @@ int main() {
 
     checkCudaErrors(cudaMemcpy(d_input, h_input, bytes, cudaMemcpyHostToDevice));
 
-    int threadsPerBlock = 256;
-    int blocksPerGrid;
-    calculateGridAndBlockSize(matrixSize, threadsPerBlock, &blocksPerGrid);
+    int threadsPerBlock = 1024;
+    int blocksPerGrid = (problemSize + threadsPerBlock - 1) / threadsPerBlock;
 
     cudaEvent_t start, stop;
     startTimer(&start, &stop);
